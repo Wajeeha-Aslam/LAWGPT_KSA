@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Legal Chat</title>
+  <link rel="stylesheet" href="/css/stylelegal-chat.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      background: white;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h1 {
+      text-align: center;
+      color:#0a1733;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background:#2c3e50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background:#2c3e50;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #e9f7ef;
+      border: 1px solid #d4efdf;
+      border-radius: 8px;
+    }
+
+    .result p {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧑‍⚖️ Legal Chat Assistant</h1>
+
+    <form method="POST" action="/legal-chat">
+      <label for="topic">📚 Topic:</label>
+      <select name="topic" id="topic" required>
+        <option value="">-- Select Topic --</option>
+        <option <%= topic === 'Labor Law' ? 'selected' : '' %>>Labor Law</option>
+        <option <%= topic === 'Shariah (Hanbali)' ? 'selected' : '' %>>Shariah (Hanbali)</option>
+        <option <%= topic === 'Shariah (Shia)' ? 'selected' : '' %>>Shariah (Shia)</option>
+        <option <%= topic === 'Regulatory Law' ? 'selected' : '' %>>Regulatory Law</option>
+        <option <%= topic === 'Administrative (BOG)' ? 'selected' : '' %>>Administrative (BOG)</option>
+      </select>
+
+      <label for="question">❓ Your Question:</label>
+      <textarea name="question" id="question" placeholder="Can I be fired without notice?" required><%= question || '' %></textarea>
+
+      <button type="submit">Ask AI</button>
+    </form>
+
+    <% if (output) { %>
+      <div class="result">
+        <h2>🧾 Result</h2>
+        <p><strong>Law Reference:</strong> <%= reference %></p>
+        <p><strong>Sharia Position:</strong> <%= sharia %></p>
+        <p><strong>AI Output:</strong> <%= output %></p>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

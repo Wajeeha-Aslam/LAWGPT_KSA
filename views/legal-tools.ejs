@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Legal Tools</title>
+  <link rel="stylesheet" href="/css/stylelegal-tools.css">
+</head>
+<body>
+    <style>body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+h1 {
+  text-align: center;
+  color: #1d3557;
+}
+section {
+  margin-bottom: 40px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+label {
+  margin: 10px 0 5px;
+}
+input, textarea, select {
+  padding: 8px;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+button {
+  padding: 10px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #005fa3;
+}
+</style>
+  <div class="container">
+    <h1>🛠️ Legal Tools</h1>
+
+    <!-- 🔹 Fatwa Inquiry -->
+    <section>
+      <h2>📜 Fatwa Inquiry</h2>
+      <form method="POST" action="/legal-tools/fatwa">
+        <label for="question">Question:</label>
+        <textarea name="question" id="question" required><%= fatwa && fatwa.question ? fatwa.question : '' %></textarea>
+
+        <!-- <textarea name="question" id="question" required><%= fatwa?.question || "" %></textarea> -->
+
+        <label for="topic">Topic:</label>
+        <input type="text" name="topic" id="topic" value="<%= fatwa?.topic || "" %>" required>
+
+        <label for="madhhab">Madhhab:</label>
+        <select name="madhhab" id="madhhab" required>
+          <option value="Hanbali" <%= fatwa?.madhhab === 'Hanbali' ? 'selected' : '' %>>Hanbali</option>
+          <option value="Shafi'i" <%= fatwa?.madhhab === "Shafi'i" ? 'selected' : '' %>>Shafi'i</option>
+          <option value="Maliki" <%= fatwa?.madhhab === 'Maliki' ? 'selected' : '' %>>Maliki</option>
+          <option value="Hanafi" <%= fatwa?.madhhab === 'Hanafi' ? 'selected' : '' %>>Hanafi</option>
+        </select>
+
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date" value="<%= fatwa?.date || '' %>" required>
+
+        <label for="authority">Issuing Authority:</label>
+        <input type="text" name="authority" id="authority" value="<%= fatwa?.authority || "" %>" required>
+
+        <button type="submit">Submit Fatwa Inquiry</button>
+      </form>
+    </section>
+
+    <!-- 🔹 Case Search -->
+    <section>
+      <h2>🔍 Case Search</h2>
+      <form method="POST" action="/legal-tools/case-search">
+        <label for="caseNumber">Case Number:</label>
+        <input type="text" name="caseNumber" id="caseNumber" value="<%= caseSearch?.caseNumber || '' %>" required>
+
+        <label for="type">Type:</label>
+        <select name="type" id="type" required>
+          <option value="Criminal" <%= caseSearch?.type === 'Criminal' ? 'selected' : '' %>>Criminal</option>
+          <option value="Civil" <%= caseSearch?.type === 'Civil' ? 'selected' : '' %>>Civil</option>
+        </select>
+
+        <label for="year">Year:</label>
+        <input type="number" name="year" id="year" value="<%= caseSearch?.year || '' %>" required>
+
+        <label for="courtLevel">Court Level:</label>
+        <input type="text" name="courtLevel" id="courtLevel" value="<%= caseSearch?.courtLevel || '' %>" required>
+
+        <label for="outcome">Outcome:</label>
+        <input type="text" name="outcome" id="outcome" value="<%= caseSearch?.outcome || '' %>">
+
+        <button type="submit">Search Case</button>
+      </form>
+    </section>
+
+    <!-- 🔹 Royal Decree Search -->
+    <section>
+      <h2>📘 Royal Decree Search</h2>
+      <form method="POST" action="/legal-tools/royal-decree">
+        <label for="decreeNumber">Decree Number:</label>
+        <input type="text" name="decreeNumber" id="decreeNumber" value="<%= decree?.decreeNumber || '' %>" required>
+
+        <label for="decreeDate">Date:</label>
+        <input type="date" name="decreeDate" id="decreeDate" value="<%= decree?.decreeDate || '' %>" required>
+
+        <label for="ministry">Ministry:</label>
+        <input type="text" name="ministry" id="ministry" value="<%= decree?.ministry || '' %>" required>
+
+        <label for="lawArea">Law Area:</label>
+        <input type="text" name="lawArea" id="lawArea" value="<%= decree?.lawArea || '' %>" required>
+
+        <label for="summary">Summary:</label>
+        <textarea name="summary" id="summary"><%= decree?.summary || '' %></textarea>
+
+        <button type="submit">Search Decree</button>
+      </form>
+    </section>
+  </div>
+</body>
+</html>
